@@ -73,7 +73,6 @@ var config = {
     var newRow = $("<tr>").append(
         $("<td>").text(trainName),
         $("<td>").text(userDestination),
-        $("<td>").text(userFirstTime),
         $("<td>").text(userFrequency),
     );
 
