@@ -1,1 +1,17 @@
-/* Comment for git push */
+#jumbo {
+    text-align: center;
+    color: white;
+    background-color: teal;
+}
+
+#schedule-header {
+    text-align: center;
+    color: white;
+    background-color: teal;
+}
+
+#add-train-header {
+    text-align: center;
+    color: white;
+    background-color: teal;
+}
