@@ -36,10 +36,10 @@ var config = {
       database.ref().push(newTrain);
 
       // Safety first, console.log
-      console.log(newTrain.name);
-      console.log(newTrain.destination);
-      console.log(newTrain.time);
-      console.log(newTrain.frequency);
+    //   console.log(newTrain.name);
+    //   console.log(newTrain.destination);
+    //   console.log(newTrain.time);
+    //   console.log(newTrain.frequency);
 
       alert("All Aboard!")
 
@@ -52,7 +52,7 @@ var config = {
 
   // Firebase event for adding a new train and add a row to the table
   database.ref().on("child_added", function(childSnapshot) {
-      console.log(childSnapshot.val());
+      //console.log(childSnapshot.val());
 
     // Store data in a variable
     var trainName = childSnapshot.val().name;
@@ -61,19 +61,32 @@ var config = {
     var userFrequency = childSnapshot.val().frequency;
 
     // Train info
-    console.log(trainName);
-    console.log(userDestination);
-    console.log(userFirstTime);
-    console.log(userFrequency);
+    // console.log(trainName);
+    // console.log(userDestination);
+    // console.log(userFirstTime);
+    // console.log(userFrequency);
 
-    // Moment.js goes here?
-    // ----------------Moment.js-------------------------
+    // Moment.js
+    var userFirstTime = childSnapshot.val().userFirstTime;
+    var frequency = childSnapshot.val().frequency;
+
+    var userFirstTimeConverted = moment(userFirstTime, "hh:mm").subtract(1, "years");
+    var diffTime = moment().diff(moment(userFirstTimeConverted), "minutes");
+    var timeRemainder = diffTime % frequency;
+    //var minutesAway = frequency - timeRemainder;
+    var minutesAway = frequency - 5;
+    var nextTime = moment().add(minutesAway, "minutes");
+    console.log("arrival time: " + moment(nextTime).format("hh:mm"));
+    var nextTrainTime = moment(nextTime).format("hh:mm");
+   
 
     // Create new row
     var newRow = $("<tr>").append(
         $("<td>").text(trainName),
         $("<td>").text(userDestination),
         $("<td>").text(userFrequency),
+        $("<td>").text(nextTrainTime),
+        $("<td>").text(minutesAway)
     );
 
     // Append new row to the table
